@@ -4,7 +4,7 @@
  * @format
  */
 
-import React from 'react';
+import React from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,31 +13,32 @@ import {
   Text,
   ScrollView,
   TextInput,
-  Button
-} from 'react-native';
-import ToDoForm from './ToDoForm';
-import ToDoList from './ToDoList';
-import { useState } from 'react';
+  Button,
+} from "react-native";
+import ToDoForm from "./src/components/ToDoForm";
+import ToDoList from "./src/components/ToDoList";
+import { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/native-stack";
 
-function App() {
 
-    const [tasks, setTasks] = useState([
-    'Do laundry',
-    'Go to gym',
-    'Walk dog'
-  ]);
+export default function App() {
+  const [tasks, setTasks] = useState(["Do laundry", "Go to gym", "Walk dog"]);
   const addTask = (taskText) => {
     setTasks([...tasks, taskText]);
+  };
 
-  }
-  
+  const Stack = createStackNavigator();
+
+
   return (
-    <SafeAreaView>
-      <ToDoList tasks={tasks} />
-      <ToDoForm addTask={addTask}/>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="About" component={AboutScreen} />
+      <SafeAreaView>
+        <ToDoList tasks={tasks} />
+        <ToDoForm addTask={addTask} />
+      </SafeAreaView>
+    </NavigationContainer>
   );
-}
-
-
-export default App;
+};
